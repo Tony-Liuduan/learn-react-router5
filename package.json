@@ -1,0 +1,33 @@
+{
+  "name": "react-router-sound-code",
+  "version": "1.0.0",
+  "description": "read react-router-sound-code",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open"
+  },
+  "keywords": [
+    "react-router-source-code",
+    "webpack4"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-router-dom": "^5.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "babel-loader": "^8.0.6",
+    "babel-preset-react-app": "^9.1.1",
+    "cross-env": "^7.0.2",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.41.6",
+    "webpack-build-notifier": "^2.0.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-merge": "^4.2.2"
+  }
+}

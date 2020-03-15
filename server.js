@@ -2,7 +2,7 @@
  * @Author: liuduan
  * @Date: 2020-03-15 16:31:54
  * @LastEditors: liuduan
- * @LastEditTime: 2020-03-15 17:01:42
+ * @LastEditTime: 2020-03-15 17:06:39
  * @Description: test 异步请求307跳转，结论307不能异步跳转，需要在前端fetch res上通过redirected属性识别
  */
 
@@ -42,7 +42,7 @@ http.createServer((req, res) => {
         `)
     } else {
         res.writeHead(307, { 'Location': 'http://localhost:8000/a' });
-        res.write('<a href="' + 'http://localhost:8000/a' + '">CAS logout</a>')
+        res.write('<a href="' + 'http://localhost:8000/a' + '">haha</a>')
     }
 
     res.end();

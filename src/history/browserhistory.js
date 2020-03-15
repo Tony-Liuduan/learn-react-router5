@@ -28,7 +28,7 @@ function createLocation(path, state, key, currentLocation) { // path = '/a'
         location.state = state;
     } else {
         // One-arg form: push(location)
-        /* location = _extends({}, path);
+        location = Object.assign({}, path);
         if (location.pathname === undefined) location.pathname = '';
 
         if (location.search) {
@@ -43,7 +43,7 @@ function createLocation(path, state, key, currentLocation) { // path = '/a'
             location.hash = '';
         }
 
-        if (state !== undefined && location.state === undefined) location.state = state; */
+        if (state !== undefined && location.state === undefined) location.state = state;
     }
 
     location.pathname = decodeURI(location.pathname);

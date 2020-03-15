@@ -6,6 +6,7 @@ module.exports = {
     
     devServer: { // 默认热更新
         port: 3000,
+        historyApiFallback: true,
         before(app) {
             app.get("/api/test", (req, res) => {
                 res.json({
@@ -13,6 +14,6 @@ module.exports = {
                     msg: "hello world"
                 });
             });
-        }
+        },
     }
 }

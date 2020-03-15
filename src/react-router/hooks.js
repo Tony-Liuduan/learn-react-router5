@@ -1,7 +1,9 @@
 import React from "react";
-
 import Context from "./RouterContext.js";
 import matchPath from "./matchPath.js";
+
+// import { __RouterContext as RouterContext } from "react-router";
+
 
 const useContext = React.useContext;
 

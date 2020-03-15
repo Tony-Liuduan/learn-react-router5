@@ -17,6 +17,7 @@ ReactDOM.render(
         <Switch>
             <Route path="/a" component={App} />
             <Route path="/b" component={Bpp} />
+            <Route path="/c/:type(view|edit)/:id(\d+)?" component={App} strict sensitive></Route>
             <Redirect to={{ pathname: "/a" }} />
         </Switch>
     </HashRouter>,

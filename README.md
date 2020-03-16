@@ -15,8 +15,13 @@ npm start
 * REPLACE: history.replace 触发的跳转
 
 ## length
-> 记录当前浏览器tab页面的url变化个数
-history.length === window.history.length
+* history.length返回一个整数，表示历史状态（history state）列表长度
+* history.length是一个只读属性
+* 由网页加载生成的历史状态，即向服务器请求新的页面
+* 通过history.pushState()方法生成历史状态，这种方式不会向服务器发起请求
+* 刷新、goBack操作不会生成历史状态
+* 有了历史状态，浏览器的前进后退按钮就处于可用状态，可以在历史状态之间来回切换
+* history.length === window.history.length
 
 ## hashhistory
  * history.push    --> window.location.hash = newHashPath   --> update allPaths --> history.setState --> react.setState --> render --> handleHashChange

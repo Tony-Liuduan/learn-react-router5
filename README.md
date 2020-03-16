@@ -146,3 +146,80 @@ regexp = /^\/c\/((?:view|edit))(?:\/((?:\d+)))?$/
 ```
 * browserhistory 传递的state是保存在window.history.state.state上，所以页面刷新时不会清空state
 * hashhistory 传递的state是存在自定义history对象的属性中，也就是内存中，所以页面刷新时，就会清空state
+
+
+
+## React Hooks
+> hooks lazy memo fiber
+
+### 组件类型
+* class (生命周期)
+* functional (函数组件 hooks，没有hooks时代不能处理副作用，大多用于UI组件)
+* hoc (高阶组件，是对组价功能的扩展，状态扩展，管理副作用代码)
+* render-props (状态复用，UI不复用，管理副作用代码)
+
+
+### 为什么使用Hooks
+* 状态逻辑复用差，需要把代码写在不同的生命周期里，没有hooks之前是通过render-props | hoc 解决的，
+* 复杂组件难以理解
+* class类组件，this不好维护，class编译之后的代码太多
+
+
+### Hooks Api
+* useState
+* useEffect
+    - 控制副作用
+* useContext
+    - 不用使用组件，直接使用函数
+* useRef
+    - 返回一个ref的可变对象
+* useReducer 
+    - 管理本地复杂state
+* useMemo
+    - Memozied pure
+* useCallback
+    - Memozied callback
+
+    
+    
+### 什么事副作用？
+> 对于一个函数不可确定输出的，不是纯函数的
+* dom操作
+* 浏览器事件绑定
+* http请求
+* io操作
+
+
+
+### 为什么hooks不能在if/for中使用
+* 因为状态和数据都存到链表里面的，如果循环数目变更，下次再来取数据，就会混乱
+* useState，useEffect 调用按顺序从`memoizedState[]`中取，所以cursor就是`memoizedState[]`的index，if/for会打乱hooks执行顺序，造成index取值错误
+
+```js
+// hooks state 是存在链表里面的，类似于数组
+var a = {
+    value: 1,
+    next: {
+        value: 2,
+        next: {
+
+        }
+    }
+}
+```
+
+
+## hooks源码
+```js
+export type Hook = {
+  memoizedState: any,//记录当前useState应该返回的结果
+
+  baseState: any,//基础数据
+  baseQueue: Update<any, any> | null,
+  queue: UpdateQueue<any, any> | null,//缓存队列，缓存多次的行为
+
+
+  next: Hook | null,//指向下一个hook对象：useState、useEffect等
+};
+
+```

@@ -1,11 +1,17 @@
 import React from 'react';
-import { useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom';
+import {
+    Link,
+    useHistory,
+    useLocation,
+    useParams,
+    useRouteMatch,
+} from 'react-router-dom';
 
 
 const Bpp = (props) => {
     // test hooks
     console.log(useHistory(), useLocation(), useParams(), useRouteMatch());
-    
+
     const back = () => {
         props.history.goBack();
     }
@@ -17,6 +23,8 @@ const Bpp = (props) => {
         <p><span>history.location===</span>{JSON.stringify(props.history.location)}</p>
         <p><span>match===</span>{JSON.stringify(props.match)}</p>
         <button onClick={back}>返回</button>
+        <br />
+        <Link to="/c/view/001">to C page</Link>
     </div>
 }
 

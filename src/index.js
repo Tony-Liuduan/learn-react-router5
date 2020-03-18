@@ -1,26 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {
-    HashRouter,
-    BrowserRouter,
-    Switch,
-    Route,
-    Redirect,
-} from 'react-router-dom';
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import {
+//     HashRouter,
+//     BrowserRouter,
+//     Switch,
+//     Route,
+//     Redirect,
+// } from 'react-router-dom';
 
-import App from './components/App.js';
-import Bpp from './components/Bpp.js';
-import Cpp from './components/Cpp.js';
+// import App from './components/App.js';
+// import Bpp from './components/Bpp.js';
+// import Cpp from './components/Cpp.js';
 
-import Hooks from './hooks/index.js';
+// import Hooks from './hooks/index.js';
 
-import DemoClass from './demo/class.js';
-import DemoFunc from './demo/functional.js';
-import DemoHoc from './demo/hoc.js';
-import DemoRender from './demo/render-props.js';
+// import DemoClass from './demo/class.js';
+// import DemoFunc from './demo/functional.js';
+// import DemoHoc from './demo/hoc.js';
+// import DemoRender from './demo/render-props.js';
 
-
-import './hooks/simple/index3.js';
+// import './hooks/simple/index3.js';
 
 
 // ReactDOM.render(
@@ -30,7 +29,7 @@ import './hooks/simple/index3.js';
 //             <Route path="/a" component={App} />
 //             <Route path="/b" component={Bpp} exact strict sensitive />
 //             <Route path="/c/:type(view|edit)/:id(\d+)?" component={Cpp} exact strict sensitive></Route>
-            
+
 //             <Route path="/hooks" component={Hooks} />
 
 //             {/* demo */}

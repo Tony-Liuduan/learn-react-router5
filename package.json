@@ -4,7 +4,8 @@
   "description": "read react-router-sound-code",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open",
+    "dev": "webpack --mode development"
   },
   "keywords": [
     "react-router-source-code",

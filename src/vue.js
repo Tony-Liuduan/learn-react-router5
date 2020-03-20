@@ -47,14 +47,13 @@ function observer(vm, key, value) {
         enumerable: true,
         configurable: true,
         get: function () {
-            console.log('defineProperty-Get', value);
+            console.log('defineProperty-Get', key, value);
             return value
         },
         set: function (newValue) {
+            console.log('defineProperty-Set', key, newValue, value)
             if (value !== newValue) {
                 value = newValue
-                console.log('defineProperty-Set', newValue, value)
-
                 //将变动通知给相关的订阅者
                 dep.notify(newValue)
             }
@@ -82,13 +81,41 @@ function initMVVM(vm) {
 }
 
 //初始化数据源
-initMVVM(vm)
+// initMVVM(vm)
 
 //初始化页面，将数据源渲染到UI
 dep.notify(vm.value);
 
 
-
+// Object.defineProperty 只能监听开始添加数组的内存段key，如果新增内存段，新增的内存段不会被监听，如果删除开始监听的内存段之后补充当前位置的内纯段也不会被监听到
 var arr = [8, 9, 100];
 initMVVM(arr);
-arr.push(1);
+// arr[1] = 2 // 会被监听
+// arr[2] // 会被监听
+// arr.push(1); // 不会被监听
+// arr.push(12); // 不会被监听
+// console.log('++++++++++++++')
+// arr.unshift(1) // 新增的不会被监听
+// console.log('++++++++++++++')
+// arr.pop() // 不会被监听
+
+// 注意：sort / reverse 也是删除新增数组，所以也不会被监听，也需要被重写
+// splice sort reverse unshift shift pop push
+
+
+
+
+// 而Proxy刚好可以解决上面Object.defineProperty新增删除不能被监听的问题
+// const pa = new Proxy(arr, {
+//     get(target, key, receiver) {
+//         console.log('proxy get', target, key, receiver);
+//         return Reflect.get(target, key, receiver);
+//     },
+//     set(target, key, value, receiver) {
+//         console.log('proxy set', target, key, value, receiver);
+//         return Reflect.set(target, key, value, receiver);
+//     }
+// })
+
+// pa.unshift(999)
+// pa.shift()

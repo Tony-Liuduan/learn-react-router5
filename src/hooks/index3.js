@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import ReactDOM from "react-dom";
 
 export default function App() {
-    console.log("render");
     const [count, setCount] = useState(0);
     const [name, setName] = useState('Star');
 

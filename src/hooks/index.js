@@ -1,22 +1,36 @@
 import React from 'react';
-import {
-    Switch,
-    Route,
-    Redirect,
-} from 'react-router-dom';
+import ReactDOM from 'react-dom';
 
-import MyUseReducer from './useReducer.js';
-import MyUseContext from './useContext.js';
-
-
-const Hooks = (props) => {
-    const prefix = props.match.url;
-    return <Switch>
-        <Route path={`${prefix}/reducer`} component={MyUseReducer} />
-        <Route path={`${prefix}/context`} component={MyUseContext} />
-        <Redirect to={{ pathname: `${prefix}/reducer` }} />
-    </Switch>
+function useState(initialValue) {
+    let state = initialValue;
+    function setState(newState) {
+        state = newState;
+        render(); // 模拟 reRender，这一行不需要关心
+    }
+    return [state, setState];
 }
 
+function App() {
+    const [count, setCount] = useState(0);
 
-export default Hooks;
+    return (
+        <div>
+            <div>{count}</div>
+            <button
+                onClick={() => {
+                    setCount(count + 1);
+                }}
+            >
+                点击
+      </button>
+        </div>
+    );
+}
+
+const rootElement = document.getElementById("root");
+
+function render() {
+    ReactDOM.render(<App />, rootElement);
+}
+render();
+

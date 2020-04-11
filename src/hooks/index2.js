@@ -1,74 +1,68 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-
-let memoizedState = []; // hooks 存放在这个数组
-let cursor = 0; // 当前 memoizedState 下标
-
+let state;
 function useState(initialValue) {
-    console.log("useState", cursor, memoizedState, memoizedState[cursor]);
-    memoizedState[cursor] = memoizedState[cursor] || initialValue;
-    const currentCursor = cursor;
-    function setState(newState) {
-        memoizedState[currentCursor] = newState;
+    state = state || initialValue;
+    function setState(newValue) {
+        state = newValue;
         render();
     }
-    return [memoizedState[cursor++], setState]; // 返回当前 state，并把 cursor 加 1
+    return [state, setState];
 }
 
-function useEffect(callback, depArray) {
-    console.log("useEffect", cursor, memoizedState, memoizedState[cursor]);
-    const hasNoDeps = !depArray;
-    const deps = memoizedState[cursor];
-    const hasChangedDeps = deps
-        ? !depArray.every((el, i) => el === deps[i])
-        : true;
-    if (hasNoDeps || hasChangedDeps) {
-        callback();
-        memoizedState[cursor] = depArray;
+
+const App = () => {
+
+    const [count, setCount] = useState(1);
+    const [random, setRandom] = useState(Math.random());
+
+
+    function add() {
+        setCount(count + 1);
     }
-    cursor++;
-}
 
-function App() {
-    const [count, setCount] = useState(0); 0
-    const [username, setUsername] = useState("fan"); 1
-    useEffect(() => {
-        2
-        console.log(count, '序号');
-    }, [count]);
-    useEffect(() => {
-        3
-        console.log(username, '姓名');
-    }, [username]);
-
+    function change() {
+        setRandom(Math.random());
+    }
 
     return (
-        <div>
-            <div>{count}</div>
-            <button
-                onClick={() => {
-                    setCount(count + 1);
-                }}
-            >
-                点击
-      </button>
-            <div>{username}</div>
-            <button
-                onClick={() => {
-                    setUsername(username + " hello");
-                }}
-            >
-                点击
-      </button>
-        </div>
-    );
+        <>
+            <h1>手写useState+</h1>
+            <p>{count}</p>
+            <button onClick={add}>add</button>
+            <p>{random}</p>
+            <button onClick={change}>换随机数</button>
+        </>
+    )
 }
 
-const rootElement = document.getElementById("root");
+
 
 function render() {
-    cursor = 0;
-    ReactDOM.render(<App />, rootElement);
+    ReactDOM.render(<App />, document.getElementById('root'));
 }
+
+
 render();
+
+
+
+
+
+
+// let memoState = [];
+// let point = 0;
+// function useState(initialValue) {
+//     memoState[point] = memoState[point] || initialValue;
+//     const _cur = point;
+//     console.log(memoState, _cur);
+//     function setState(newValue) {
+//         memoState[_cur] = newValue;
+//         // point = 0; // 关键一步
+//         render();
+//     }
+//     return [memoState[point++], setState];
+// }
+
+

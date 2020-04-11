@@ -1,50 +1,55 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-let _state, _deps; // 把 state 存储在外面
 
 function useState(initialValue) {
-    _state = _state | initialValue; // 如果没有 _state，说明是第一次执行，把 initialValue 复制给它
-    function setState(newState) {
-        _state = newState;
+    let state = state || initialValue;
+    function setState(newValue) {
+        state = newValue;
         render();
     }
-    return [_state, setState];
+    return [state, setState];
 }
 
-function useEffect(callback, depArray) {
-    const hasNoDeps = !depArray;
-    const hasChangedDeps = _deps
-        ? !depArray.every((el, i) => el === _deps[i])
-        : true;
-    if (hasNoDeps || hasChangedDeps) {
-        callback();
-        _deps = depArray;
+
+const App = () => {
+
+    const [count, setCount] = useState(1);
+
+
+    function add() {
+        setCount(count + 1);
     }
-}
 
-function App() {
-    const [count, setCount] = useState(0);
-    useEffect(() => {
-        console.log(count);
-    }, [count]);
     return (
-        <div>
-            <div>{count}</div>
-            <button
-                onClick={() => {
-                    setCount(count + 1);
-                }}
-            >
-                点击
-      </button>
-        </div>
-    );
+        <>
+            <h1>手写useState</h1>
+            <p>{count}</p>
+            <button onClick={add}>add</button>
+        </>
+    )
 }
 
-const rootElement = document.getElementById("root");
+
 
 function render() {
-    ReactDOM.render(<App />, rootElement);
+    ReactDOM.render(<App />, document.getElementById('root'));
 }
+
+
 render();
+
+
+
+
+
+
+// let state;
+// function useState(initialValue) {
+//     state = state || initialValue;
+//     function setState(newValue) {
+//         state = newValue;
+//         render();
+//     }
+//     return [state, setState];
+// }

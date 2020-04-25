@@ -223,3 +223,85 @@ export type Hook = {
 };
 
 ```
+
+
+
+---
+
+
+# Webpack-config
+
+## 1.babel-polyfill
+### 优雅的babel-polyfill
+> https://blog.hhking.cn/2019/04/02/babel-v7-update/
+```sh
+npm i -D core-js@3 @babel/plugin-transform-runtime
+```
+```js
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage",// usage 会根据配置的浏览器兼容，以及你代码中用到的 API 来进行 polyfill，实现了按需添加。
+        "corejs": 3,
+        "targets": {
+          "ie": 10
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    // 这个插件是用来复用辅助函数的
+    "@babel/plugin-transform-runtime",
+  ]
+}
+```
+
+### 比上面更优雅的babel-polyfill，避免全局变量污染，通过闭包形式传入, 更适合npm组件
+> https://blog.hhking.cn/2019/04/02/babel-v7-update/
+```sh
+npm i -D @babel/plugin-transform-runtime @babel/runtime-corejs3
+```
+```js
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "ie": 18
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    // 1. 这个插件是用来复用辅助函数的
+    // 2. 以闭包形式注入, 避免全局污染
+    // 3. 缺点：不能指定目标浏览器版本，如果有指定浏览器版本，还是建议使用上面的方式
+    [
+        "@babel/plugin-transform-runtime",
+        {
+            "corejs": 3,
+        },
+    ]
+  ]
+}
+```
+
+
+
+## 2.开启热更新
+1. wepackdevserver启动服务
+2. wepackdevserver配置hot:true
+3. plugins配置new webpack.HotModuleReplacementPlugin()
+4. js代码中添加如下代码:
+```js
+if (module.hot) {
+  module.hot.accept('./library.js', function() {
+    // 使用更新过的 library 模块执行某些操作...
+  });
+  // 断开热更新
+  module.hot.decline('./library.js');
+}
+```

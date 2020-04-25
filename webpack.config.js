@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 
@@ -23,6 +24,12 @@ const webpackConfig = {
             loader: 'babel-loader',
         }, ],
     },
+    optimization: {
+        runtimeChunk: {
+            // 不能放在cdn中请求，要放在html中，减少请求
+            name: 'runtime',
+        }
+    },
     plugins: [
         new HtmlWebpackPlugin({ // Also generate a test.html
             filename: 'index.html',
@@ -35,6 +42,9 @@ const webpackConfig = {
             title: 'Webpack Build Over',
             suppressSuccess: true
         }),
+
+        // 热更新
+        new webpack.HotModuleReplacementPlugin(),
     ],
 }
 

@@ -1,3 +1,9 @@
+/**
+ * @fileoverview 
+ * @author liuduan
+ * @Date 2020-05-08 15:06:18
+ * @LastEditTime 2020-05-19 15:17:31
+ */
 module.exports = {
     // TODO: 如果是type=mode 就不编译
     // <script src="//polyfill.io/v3/polyfill.min.js"></script>
@@ -20,6 +26,12 @@ module.exports = {
     "plugins": [
         [
             "@babel/plugin-transform-runtime",
+        ],
+        [
+            "try-catch-auto",
+            {
+                "throwError": false // throwError = false 时，捕获异常不向外继续抛出
+            }
         ]
     ]
 }

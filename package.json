@@ -26,6 +26,7 @@
     "@babel/preset-env": "^7.8.7",
     "@babel/runtime-corejs3": "^7.9.2",
     "babel-loader": "^8.0.6",
+    "babel-plugin-try-catch-auto": "^2.4.6",
     "babel-preset-react-app": "^9.1.1",
     "core-js": "^3.6.5",
     "cross-env": "^7.0.2",

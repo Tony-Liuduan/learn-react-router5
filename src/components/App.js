@@ -1,3 +1,9 @@
+/**
+ * @fileoverview 
+ * @author liuduan
+ * @Date 2020-03-31 23:24:19
+ * @LastEditTime 2020-05-23 16:15:54
+ */
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
@@ -27,6 +33,11 @@ export default class App extends React.Component {
     active = (match, location) => {
         console.log(match, location)
     }
+    renderList = () => {
+        const list = new Array(1000);
+        list.fill(1);
+        return <>{list.map((item, index) => { return <li key={index}><Link to='/b'>{index}</Link></li> })}</>
+    }
     render() {
         console.log('render', this.state.count);
         return <div>
@@ -35,6 +46,7 @@ export default class App extends React.Component {
             <p><span>history.action===</span>{window.history.action} / {this.props.history.action}</p>
             <p><span>history.location===</span>{JSON.stringify(this.props.location)}</p>
             <p><span>match===</span>{JSON.stringify(this.props.match)}</p>
+
             <Link to={{
                 pathname: '/b',
                 search: '?c=1&x=d',
@@ -48,6 +60,10 @@ export default class App extends React.Component {
                 fontWeight: 'bold',
                 color: 'red'
             }}>NavLink跳转到App</NavLink>
+
+            {
+                this.renderList()
+            }
         </div>
     }
 }

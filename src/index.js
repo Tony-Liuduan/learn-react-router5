@@ -1,7 +1,13 @@
+/**
+ * @fileoverview 
+ * @author liuduan
+ * @Date 2020-05-20 10:50:05
+ * @LastEditTime 2020-05-23 16:21:43
+ */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-    // HashRouter,
+    HashRouter,
     BrowserRouter,
     Switch,
     Route,
@@ -16,7 +22,13 @@ import DemoClass from './demo/class.js';
 import DemoFunc from './demo/functional.js';
 import DemoHoc from './demo/hoc.js';
 import DemoRender from './demo/render-props.js';
-
+window.addEventListener('popstate', handlePop);
+function handlePop(event) {
+    console.warn("location: " + document.location + ", state: " + JSON.stringify(event.state));
+};
+window.addEventListener('scroll', function (e) {
+    console.log('+++++handleScroll', e);
+});
 
 ReactDOM.render(
     <BrowserRouter basename="/basename">
@@ -37,3 +49,5 @@ ReactDOM.render(
     </BrowserRouter>,
     document.getElementById("root"),
 );
+
+// import './demo/history';

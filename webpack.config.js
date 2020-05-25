@@ -25,6 +25,18 @@ const webpackConfig = {
         }, ],
     },
     optimization: {
+        splitChunks: {
+            // 公用包
+            cacheGroups: {
+                commons: {
+                    chunks: 'initial', // initial 入口chunk，对于异步导入的文件不处理, async 异步chunk，只对异步导入的文件处理, all 全部chunk
+                    name: 'common', // 打出来的包名
+                    minChunks: 1, // 包被最少的引用次数
+                    maxInitialRequests: 5, // 最大请求数不能超过5个，最大初始化加载次数，一个入口文件可以并行加载的最大文件数量，默认1，不包括runtime文件
+                    minSize: 0, // js文件最小尺寸
+                }
+            }
+        },
         runtimeChunk: {
             // 不能放在cdn中请求，要放在html中，减少请求
             name: 'runtime',

@@ -2,7 +2,7 @@
  * @fileoverview 
  * @author liuduan
  * @Date 2020-05-08 15:06:18
- * @LastEditTime 2020-05-25 18:13:56
+ * @LastEditTime 2020-06-06 11:04:54
  */
 module.exports = {
     // TODO: 如果是type=module 就不编译
@@ -27,7 +27,7 @@ module.exports = {
                 },
             },
         ],
-        // "react-app",
+        "react-app",
     ],
     "plugins": [
         [

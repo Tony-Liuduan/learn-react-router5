@@ -2,10 +2,32 @@
  * @fileoverview 
  * @author liuduan
  * @Date 2020-03-31 23:24:19
- * @LastEditTime 2020-05-23 16:15:54
+ * @LastEditTime 2020-06-21 09:56:16
  */
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Link, NavLink } from 'react-router-dom';
+// console.log(React.createElement("p", null, "a", "b"));
+
+// 模拟服务端返回数据对象
+let expectedTextButGotJSON = {
+    type: 'div',
+    props: {
+        style: {
+            color: 'greenyellow',
+        },
+        dangerouslySetInnerHTML: {
+            __html: `<p>componentDidMount</p>`,
+        },
+    },
+    $$typeof: Symbol.for('react.element'),
+    key: null,
+    ref: null,
+};
+
+// console.log(JSON.stringify(expectedTextButGotJSON)) 
+// {"type":"div","props":{"dangerouslySetInnerHTML":{"__html":"<p>componentDidMount</p>"}},"ref":{"current":null}}
+let message = { text: expectedTextButGotJSON };
 
 
 
@@ -19,7 +41,25 @@ export default class App extends React.Component {
     componentDidMount() {
         this.setState({
             count: 1,
+            xss: `<p>componentDidMount</p>`,
         });
+
+        setTimeout(() => {
+            // 手动调用批处理
+            ReactDOM.unstable_batchedUpdates(() => {
+                console.group('setTimeout-unstable_batchedUpdates');
+                console.log('setTimeout-unstable_batchedUpdates', this.state.count);
+                this.setState((state) => ({
+                    count: state.count + 100,
+                }));
+                console.log('setTimeout-unstable_batchedUpdates', this.state.count);
+                this.setState((state) => ({
+                    count: state.count + 1,
+                }));
+                console.log('setTimeout-unstable_batchedUpdates', this.state.count);
+                console.groupEnd('setTimeout-unstable_batchedUpdates');
+            });
+        }, 0);
     }
     componentDidUpdate() {
         console.log('componentDidUpdate', this.state.count);
@@ -61,9 +101,62 @@ export default class App extends React.Component {
                 color: 'red'
             }}>NavLink跳转到App</NavLink>
 
+            {message.text}
+
+            {
+                {
+                    type: 'div',
+                    props: {
+                        style: {
+                            color: 'green',
+                        },
+                        // children: [
+                        // 'xxx'
+                        // ],
+                        dangerouslySetInnerHTML: {
+                            __html: `<iframe>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react-router分析</title>
+</head>
+
+<body>
+    <div id="root">
+        <%= htmlWebpackPlugin.options.loading.html %>
+    </div>
+    <script>
+        alert(1);
+    </script>
+</body>
+
+</html>
+                            </iframe>`,
+                        },
+                    },
+                    $$typeof: Symbol.for('react.element'),
+                    ref: React.createRef(),
+                }
+            }
+
+            <p>------------------</p>
+
+            <div dangerouslySetInnerHTML={{ __html: this.state.xss }} />
+            {
+                this.state.xss
+            }
+            <br/>
+            {
+                React.Children.map('test React.Children.map element is a string is running', a => a)
+            }
+
             {
                 this.renderList()
             }
+
+
         </div>
     }
 }

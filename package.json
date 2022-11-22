@@ -34,11 +34,11 @@
     "babel-plugin-try-catch-auto": "^2.4.6",
     "babel-preset-react-app": "^9.1.1",
     "cross-env": "^7.0.2",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "prerender-spa-plugin": "^3.4.0",
     "webpack": "^4.41.6",
     "webpack-build-notifier": "^2.0.0",
-    "webpack-cli": "^3.3.11",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.2.2"
   }
